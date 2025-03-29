@@ -1,6 +1,4 @@
-Tabii, aşağıda GitHub projen için uygun, sade ve açıklayıcı bir `README.md` dosyası örneği bulabilirsin. Bu dosya, projenin nasıl çalıştığını, hangi amaçla yazıldığını ve nasıl derlenip çalıştırılacağını açıklar:
 
----
 
 ### 📌 README.md
 
