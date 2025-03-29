@@ -38,6 +38,7 @@ Each operation is handled by a **dedicated subprocess**, and results are saved i
 
 ```
 .
+
 ├── calculator.c
 ├── addition.c
 ├── subtraction.c
@@ -46,6 +47,7 @@ Each operation is handled by a **dedicated subprocess**, and results are saved i
 ├── results.txt     # Automatically generated
 ├── Makefile        # (Optional) You can add a makefile to compile all
 └── README.md
+
 ```
 
 ---
