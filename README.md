@@ -34,10 +34,11 @@ Each operation is handled by a **dedicated subprocess**, and results are saved i
 
 ---
 
-## 📁 File Structure
 
 ```
-.
+
+
+## 📁 File Structure
 
 ├── calculator.c
 ├── addition.c
