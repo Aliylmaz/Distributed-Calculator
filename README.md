@@ -1,63 +1,50 @@
+**Multi-Process Calculator with Pipes in C**  
+Bu proje, C dilinde yazılmış ve terminal üzerinden çalışan bir hesap makinesidir. UNIX sistem çağrıları olan `fork()`, `pipe()` ve `execlp()` kullanılmıştır.
 
+**Desteklenen İşlemler:**  
+- Toplama  
+- Çıkarma  
+- Çarpma  
+- Bölme  
 
-### 📌 README.md
-
-```markdown
-# 🧮 Multi-Process Calculator with Pipes in C
-
-This project is a **terminal-based calculator** written in **C** using **UNIX system calls** like `fork()`, `pipe()`, and `execlp()`.
-
-The calculator supports:
-- Addition
-- Subtraction
-- Multiplication
-- Division
-
-Each operation is handled by a **dedicated subprocess**, and results are saved in a `results.txt` file automatically by the subprocesses (not the main process).
+Her bir işlem, kendine özel bir alt işlem (subprocess) tarafından gerçekleştirilir. İşlem sonuçları `results.txt` adlı dosyaya alt işlemler tarafından otomatik olarak kaydedilir. Ana işlem bu kaydı yapmaz.
 
 ---
 
-## 🚀 How It Works
+**Nasıl Çalışır?**  
 
-1. **Main Program (`calculator.c`)**
-   - Displays a menu and gets two numbers from the user.
-   - Sends the numbers to the corresponding subprocess through a pipe.
-   - Receives the result back via the same pipe and prints it on the terminal.
+1. **Ana Program (`calculator.c`)**  
+   - Kullanıcıya bir menü gösterir ve iki sayı girmesini ister.  
+   - Bu sayılar, ilgili alt sürece pipe (boru) üzerinden gönderilir.  
+   - Sonuç aynı pipe üzerinden alınır ve terminalde görüntülenir.  
 
-2. **Subprocesses (`addition.c`, `subtraction.c`, etc.)**
-   - Read the numbers from the pipe.
-   - Perform the operation.
-   - Send the result back to the parent through the pipe.
-   - **Also save the result to `results.txt`** using file system calls.
+2. **Alt Süreçler (`addition.c`, `subtraction.c`, vb.)**  
+   - Pipe üzerinden sayıları okurlar.  
+   - İşlemi yaparlar.  
+   - Sonucu hem pipe ile ana sürece gönderir hem de `results.txt` dosyasına kaydederler.  
 
-3. **No `dup`, `dup2`, or `STDIN_FILENO` are used**, in accordance with system programming constraints.
+**Not:** `dup`, `dup2` ve `STDIN_FILENO` gibi komutlar kullanılmamıştır.
 
 ---
 
+**Dosya Yapısı:**
 
+- `calculator.c`  
+- `addition.c`  
+- `subtraction.c`  
+- `multiplication.c`  
+- `division.c`  
+- `results.txt` (alt işlemler tarafından otomatik oluşturulur)  
+- `Makefile` (İsteğe bağlı derleme aracı)  
+- `README.md`
 
+---
 
+**Derleme Komutları:**
 
-## 📁 File Structure
-```
-├── calculator.c
-├── addition.c
-├── subtraction.c
-├── multiplication.c
-├── division.c
-├── results.txt     # Automatically generated
-├── Makefile        # (Optional) You can add a makefile to compile all
-└── README.md
+Her bir dosyayı ayrı ayrı aşağıdaki gibi derleyebilirsiniz:
 
 ```
-
----
-
-## 🛠️ Compilation
-
-You can compile the files individually using `gcc`:
-
-```bash
 gcc -o calculator calculator.c
 gcc -o addition addition.c
 gcc -o subtraction subtraction.c
@@ -67,15 +54,15 @@ gcc -o division division.c
 
 ---
 
-## ▶️ Running
+**Çalıştırma:**
 
-```bash
+```
 ./calculator
 ```
 
 ---
 
-## 🧾 Example Output
+**Örnek Çıktı:**
 
 ```
 ========================================
@@ -96,28 +83,24 @@ Addition Result: 12 + 7 = 19
 ========================================
 ```
 
-The same result is also saved to `results.txt` automatically.
+Aynı sonuç ayrıca `results.txt` dosyasına da kaydedilir.
 
 ---
 
-## 🔒 Constraints Met
+**Sağlanan Gereksinimler:**
 
-- ✔ No use of `dup`, `dup2`, or `STDIN_FILENO`
-- ✔ Each subprocess performs its own calculation
-- ✔ Saver logic is implemented **inside subprocesses**
-- ✔ Results are passed via pipes
-- ✔ Modular and clean architecture
+- `dup`, `dup2` veya `STDIN_FILENO` kullanılmamıştır.  
+- Her işlem alt bir süreç tarafından gerçekleştirilir.  
+- Sonuç kaydı alt süreçlerde yapılır.  
+- Tüm veri iletimi pipe (boru) üzerinden sağlanır.  
+- Modüler ve temiz bir mimari kullanılmıştır.
 
 ---
 
-## 👨‍💻 Author
-
+**Yazar:**  
 https://github.com/Aliylmaz
 
 ---
 
-## 📜 License
-
-This project is open source and free to use under the MIT License.
-```
-
+**Lisans:**  
+Bu proje açık kaynaklıdır ve MIT lisansı altında ücretsiz olarak kullanılabilir.
